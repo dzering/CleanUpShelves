@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerController
 {
+    public event System.Func<bool> OnSwap;
+
     BookView firstbook;
     BookView secondBook;
 
@@ -64,6 +66,8 @@ public class PlayerController
 
         firstbook = null;
         secondBook = null;
+
+        OnSwap?.Invoke();
     }
 
 }

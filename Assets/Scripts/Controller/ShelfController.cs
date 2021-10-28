@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ShelfController
 {
-    BookView book;
+    GameObject book;
     ShelfView shelf;
     BookView[] books;
 
@@ -17,10 +17,10 @@ public class ShelfController
 
     BookView[] Books { get => books; set => books = value; }
 
-    public ShelfController(ShelfView shelf, BookView book)
+    public ShelfController(ShelfView shelf)
     {
         this.shelf = shelf;
-        this.book = book;
+        this.book = Resources.Load("Book") as GameObject;
 
         bookSize = GetBookSize();
         shelfSize = GethShelfSize();
@@ -42,16 +42,18 @@ public class ShelfController
             Vector3 center = shelf.transform.position;
 
             shelfSpace[i] = new Vector3((shelf.transform.position.x - shelfSize.x/2 + bookSize.x/2) + (bookSize.x + spaceBetweenBooks) * i, (shelf.transform.position.y + shelfSize.y / 2 + bookSize.y / 2), shelf.transform.position.z);
-            var newBook = GameObject.Instantiate(Resources.Load("Book") as GameObject);
-            var item = newBook.GetComponent<BookView>();
-            item.ID = 1;
-            item.Shelf = shelf;
-            Books[i] = item;
+            var newBook = GameObject.Instantiate(book);
+            var view = newBook.GetComponent<BookView>();
+            view.ID = 1;
+            view.Shelf = shelf;
+            Books[i] = view;
 
             newBook.transform.parent = shelf.transform;
             newBook.transform.position = shelfSpace[i];
+
             var renderer = newBook.GetComponent<Renderer>();
             renderer.material.color = Random.ColorHSV(0, 1);
+            view.Color = renderer.material.color;
         }
     }
 
@@ -63,7 +65,10 @@ public class ShelfController
 
     Vector3 GetBookSize()
     {
-       return book.GetComponent<Collider>().bounds.size;
+        var item = GameObject.Instantiate(book);
+        var bookSize = item.GetComponent<Collider>().bounds.size;
+        GameObject.Destroy(item);
+        return bookSize;
     }
 
     Vector3 GethShelfSize()

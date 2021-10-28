@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] BookView book;
     [SerializeField] ShelfView[] shelves;
     ShelfController[] shelvesControllers;
 
     PlayerController playerController;
+    EndGameController endGameController;
 
 
     private void Start()
@@ -16,10 +16,13 @@ public class GameManager : MonoBehaviour
         shelvesControllers = new ShelfController[shelves.Length];
         for (int i = 0; i < shelves.Length; i++)
         {
-            shelvesControllers[i] = new ShelfController(shelves[i], book);
+            shelvesControllers[i] = new ShelfController(shelves[i]);
         }
 
+        endGameController = new EndGameController(shelves);
         playerController = new PlayerController();
+
+        playerController.OnSwap += endGameController.Check;
     }
 
     private void Update()
