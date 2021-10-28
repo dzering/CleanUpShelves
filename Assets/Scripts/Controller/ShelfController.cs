@@ -15,12 +15,10 @@ public class ShelfController
     float spaceBetweenBooks = 0.1f;
     int shelfCapacity;
 
-    public BookView[] Books { get => books; set => books = value; }
+    BookView[] Books { get => books; set => books = value; }
 
     public ShelfController(ShelfView shelf, BookView book)
     {
-        shelf.Books = books;
-
         this.shelf = shelf;
         this.book = book;
 
@@ -30,12 +28,15 @@ public class ShelfController
 
         shelfSpace = new Vector3[shelfCapacity];
         Books = new BookView[shelfCapacity];
+        shelf.Books = Books;
+
         FillShelf();
 
     }
 
     void FillShelf()
     {
+
         for (int i = 0; i < shelfCapacity; i++)
         {
             Vector3 center = shelf.transform.position;
@@ -43,14 +44,14 @@ public class ShelfController
             shelfSpace[i] = new Vector3((shelf.transform.position.x - shelfSize.x/2 + bookSize.x/2) + (bookSize.x + spaceBetweenBooks) * i, (shelf.transform.position.y + shelfSize.y / 2 + bookSize.y / 2), shelf.transform.position.z);
             var newBook = GameObject.Instantiate(Resources.Load("Book") as GameObject);
             var item = newBook.GetComponent<BookView>();
-            item.ID = i;
+            item.ID = 1;
+            item.Shelf = shelf;
             Books[i] = item;
 
             newBook.transform.parent = shelf.transform;
             newBook.transform.position = shelfSpace[i];
             var renderer = newBook.GetComponent<Renderer>();
             renderer.material.color = Random.ColorHSV(0, 1);
-
         }
     }
 

@@ -4,21 +4,21 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] ShelfView shelf2;
-    [SerializeField] ShelfView shelf;
     [SerializeField] BookView book;
-
-
+    [SerializeField] ShelfView[] shelves;
+    ShelfController[] shelvesControllers;
 
     PlayerController playerController;
 
-    ShelfController shelfController;
-    ShelfController shelfController2;
 
     private void Start()
     {
-        shelfController = new ShelfController(shelf, book);
-        shelfController2 = new ShelfController(shelf2, book);
+        shelvesControllers = new ShelfController[shelves.Length];
+        for (int i = 0; i < shelves.Length; i++)
+        {
+            shelvesControllers[i] = new ShelfController(shelves[i], book);
+        }
+
         playerController = new PlayerController();
     }
 

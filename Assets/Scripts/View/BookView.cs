@@ -7,6 +7,6 @@ public class BookView : ObjectView
     ShelfView shelf;
     int id;
 
-    public int ID { get => ID; set => ID = value; }
+    public int ID { get => id; set => id = value; }
     public ShelfView Shelf { get => shelf; set => shelf = value; }
 }
