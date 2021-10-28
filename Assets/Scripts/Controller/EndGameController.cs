@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class EndGameController
 {
+    public event System.Func<bool> OnVictory;
     ShelfView[] shelves;
     bool isVictory = false;
 
@@ -28,6 +29,7 @@ public class EndGameController
         }
 
         Debug.Log("Game Over");
+        OnVictory?.Invoke();
         return IsVictory == true;
     }
 }

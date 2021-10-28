@@ -7,27 +7,30 @@ public class ShelfController
     GameObject book;
     ShelfView shelf;
     BookView[] books;
+    ColorGenerator colorGenerator;
 
     Vector3[] shelfSpace;
     Vector3 bookSize;
     Vector3 shelfSize;
 
     float spaceBetweenBooks = 0.1f;
-    int shelfCapacity;
+    int shelvesCapacity;
+    int shelvesAmount;
 
     BookView[] Books { get => books; set => books = value; }
 
-    public ShelfController(ShelfView shelf)
+    public ShelfController(ShelfView shelf, ColorGenerator colorGenerator)
     {
         this.shelf = shelf;
         this.book = Resources.Load("Book") as GameObject;
+        this.colorGenerator = colorGenerator;
 
         bookSize = GetBookSize();
         shelfSize = GethShelfSize();
-        shelfCapacity = GetShelfCapacity();
+        shelvesCapacity = GetShelfCapacity();
 
-        shelfSpace = new Vector3[shelfCapacity];
-        Books = new BookView[shelfCapacity];
+        shelfSpace = new Vector3[shelvesCapacity];
+        Books = new BookView[shelvesCapacity];
         shelf.Books = Books;
 
         FillShelf();
@@ -37,14 +40,14 @@ public class ShelfController
     void FillShelf()
     {
 
-        for (int i = 0; i < shelfCapacity; i++)
+        for (int i = 0; i < shelvesCapacity; i++)
         {
             Vector3 center = shelf.transform.position;
 
             shelfSpace[i] = new Vector3((shelf.transform.position.x - shelfSize.x/2 + bookSize.x/2) + (bookSize.x + spaceBetweenBooks) * i, (shelf.transform.position.y + shelfSize.y / 2 + bookSize.y / 2), shelf.transform.position.z);
             var newBook = GameObject.Instantiate(book);
             var view = newBook.GetComponent<BookView>();
-            view.ID = 1;
+            view.ID = i;
             view.Shelf = shelf;
             Books[i] = view;
 
@@ -52,7 +55,7 @@ public class ShelfController
             newBook.transform.position = shelfSpace[i];
 
             var renderer = newBook.GetComponent<Renderer>();
-            renderer.material.color = Random.ColorHSV(0, 1);
+            renderer.material.color = colorGenerator.SetColor(shelvesCapacity);
             view.Color = renderer.material.color;
         }
     }

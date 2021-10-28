@@ -62,8 +62,6 @@ public class PlayerController
         second.Shelf = tempShelf;
         second.Shelf.Books[second.ID] = second;
 
-
-
         firstbook = null;
         secondBook = null;
 
