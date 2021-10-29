@@ -42,6 +42,14 @@ public class PlayerController
                 }
             }
         }
+        if (Input.GetMouseButtonDown(1))
+        {
+            if(firstbook != null)
+            {
+                firstbook.transform.position = startPositionFirstBook;
+                firstbook = null;
+            }
+        }
     }
 
     void Changing(BookView first, BookView second)

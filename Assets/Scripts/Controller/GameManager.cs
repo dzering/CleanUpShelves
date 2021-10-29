@@ -6,15 +6,18 @@ public class GameManager : MonoBehaviour
 {
     [SerializeField] ShelfView[] shelves;
     ShelfController[] shelvesControllers;
+    [SerializeField] TextView score;
 
     PlayerController playerController;
     EndGameController endGameController;
+    ScoreController scoreController;
 
     ColorGenerator colorGenerator;
 
 
     private void Start()
     {
+        scoreController = new ScoreController(score);
         colorGenerator = new ColorGenerator(shelves.Length);
         shelvesControllers = new ShelfController[shelves.Length];
         for (int i = 0; i < shelves.Length; i++)
@@ -26,6 +29,7 @@ public class GameManager : MonoBehaviour
         playerController = new PlayerController();
 
         playerController.OnSwap += endGameController.Check;
+        playerController.OnSwap += scoreController.Update;
     }
 
     private void Update()
