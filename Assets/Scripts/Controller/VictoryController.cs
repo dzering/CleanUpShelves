@@ -2,15 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EndGameController
+public class VictoryController
 {
     public event System.Func<bool> OnVictory;
     ShelfView[] shelves;
+    UIView endGameMenuView;
+
     bool isVictory = false;
 
-    public EndGameController(ShelfView[] shelves)
+    public VictoryController(ShelfView[] shelves, UIView endGameMenuView)
     {
         this.shelves = shelves;
+        this.endGameMenuView = endGameMenuView;
     }
 
     public bool IsVictory { get => isVictory; set => isVictory = value; }
@@ -28,7 +31,7 @@ public class EndGameController
             }
         }
 
-        Debug.Log("Game Over");
+        endGameMenuView.gameObject.SetActive(true);
         OnVictory?.Invoke();
         return IsVictory == true;
     }

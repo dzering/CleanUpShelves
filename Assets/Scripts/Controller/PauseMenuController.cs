@@ -4,13 +4,15 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class GameMenu : MonoBehaviour
+public class PauseMenuController
 {
-    [SerializeField] Button restart;
-    [SerializeField] Button quit;
+    Button restart;
+    Button quit;
 
-    void Start()
+    public PauseMenuController(UIView gameMenuView)
     {
+        restart = gameMenuView.Restart;
+        quit = gameMenuView.Quit;
         restart.onClick.AddListener(Restart);
         quit.onClick.AddListener(Quit);
     }

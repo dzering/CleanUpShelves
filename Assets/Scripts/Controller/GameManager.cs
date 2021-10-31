@@ -5,12 +5,16 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     [SerializeField] ShelfView[] shelves;
-    ShelfController[] shelvesControllers;
     [SerializeField] TextView score;
+    [SerializeField] UIView endGameMenuView;
+    [SerializeField] UIView pauseMenuView;
+    ShelfController[] shelvesControllers;
 
     PlayerController playerController;
-    EndGameController endGameController;
+    VictoryController victoryController;
     ScoreController scoreController;
+    PauseMenuController pauseMenuController;
+    PauseMenuController endGameMenuController;
 
     ColorGenerator colorGenerator;
 
@@ -25,10 +29,13 @@ public class GameManager : MonoBehaviour
             shelvesControllers[i] = new ShelfController(shelves[i], colorGenerator);
         }
 
-        endGameController = new EndGameController(shelves);
+        victoryController = new VictoryController(shelves, endGameMenuView);
+        pauseMenuController = new PauseMenuController(pauseMenuView);
+        endGameMenuController = new PauseMenuController(endGameMenuView);
         playerController = new PlayerController();
 
-        playerController.OnSwap += endGameController.Check;
+
+        playerController.OnSwap += victoryController.Check;
         playerController.OnSwap += scoreController.Update;
     }
 
