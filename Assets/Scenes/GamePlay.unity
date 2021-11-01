@@ -412,19 +412,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 615557069}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2102550392284256289}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &615557069
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -764,19 +752,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1343721434}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2102550392284256289}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &1343721434
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2039,6 +2015,8 @@ MonoBehaviour:
   play: {fileID: 0}
   restart: {fileID: 2102550392696897117}
   quit: {fileID: 2102550391769584372}
+  pause: {fileID: 615557068}
+  resume: {fileID: 1343721433}
 --- !u!222 &2102550392696897107
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2864,6 +2842,8 @@ MonoBehaviour:
   play: {fileID: 0}
   restart: {fileID: 1091699704346866364}
   quit: {fileID: 3781195668128791431}
+  pause: {fileID: 0}
+  resume: {fileID: 0}
 --- !u!222 &8933703846346432091
 CanvasRenderer:
   m_ObjectHideFlags: 0
