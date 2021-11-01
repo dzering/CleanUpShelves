@@ -8,15 +8,15 @@ public class GameManager : MonoBehaviour
     [SerializeField] TextView score;
     [SerializeField] UIView endGameMenuView;
     [SerializeField] UIView pauseMenuView;
-    ShelfController[] shelvesControllers;
 
+    ShelfController[] shelvesControllers;
     PlayerController playerController;
     VictoryController victoryController;
     ScoreController scoreController;
     PauseMenuController pauseMenuController;
-    PauseMenuController endGameMenuController;
+    EndGameMenuController endGameMenuController;
 
-    ColorGenerator colorGenerator;
+    IColoring colorGenerator;
 
 
     private void Start()
@@ -31,12 +31,13 @@ public class GameManager : MonoBehaviour
 
         victoryController = new VictoryController(shelves, endGameMenuView);
         pauseMenuController = new PauseMenuController(pauseMenuView);
-        endGameMenuController = new PauseMenuController(endGameMenuView);
+        endGameMenuController = new EndGameMenuController(endGameMenuView);
         playerController = new PlayerController();
 
 
         playerController.OnSwap += victoryController.Check;
         playerController.OnSwap += scoreController.Update;
+        pauseMenuController.onPause += playerController.SetInGame;
     }
 
     private void Update()

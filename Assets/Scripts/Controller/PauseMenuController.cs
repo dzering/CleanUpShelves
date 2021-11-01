@@ -4,26 +4,32 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class PauseMenuController
+public class PauseMenuController : EndGameMenuController
 {
-    Button restart;
-    Button quit;
+    public event System.Action<bool> onPause;
 
-    public PauseMenuController(UIView gameMenuView)
+    Button pause;
+    Button resume;
+
+
+    public PauseMenuController(UIView gameMenuView) : base(gameMenuView)
     {
-        restart = gameMenuView.Restart;
-        quit = gameMenuView.Quit;
-        restart.onClick.AddListener(Restart);
-        quit.onClick.AddListener(Quit);
+        pause = pauseMenuView.Pause;
+        resume = pauseMenuView.Resume;
+        pause.onClick.AddListener(Pause);
+        resume.onClick.AddListener(Resume);
     }
 
-    void Quit()
+
+    void Pause()
     {
-        SceneManager.LoadScene(0);
+        pauseMenuView.gameObject.SetActive(true);
+        onPause?.Invoke(false);
     }
 
-    void Restart()
+    void Resume()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 0);
+        pauseMenuView.gameObject.SetActive(false);
+        onPause?.Invoke(true);
     }
 }

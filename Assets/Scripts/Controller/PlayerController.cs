@@ -11,6 +11,7 @@ public class PlayerController
 
     Vector3 startPositionFirstBook;
     float offset = 0.1f;
+    bool isInGame = true;
 
     public PlayerController()
     {
@@ -19,7 +20,7 @@ public class PlayerController
 
     public void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && isInGame)
         {
           //  RaycastHit hit;
             if(Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out var hit))
@@ -74,6 +75,11 @@ public class PlayerController
         secondBook = null;
 
         OnSwap?.Invoke();
+    }
+
+    public void SetInGame(bool inGame)
+    {
+        isInGame = inGame;
     }
 
 }

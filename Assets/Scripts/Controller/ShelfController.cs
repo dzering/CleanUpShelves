@@ -7,7 +7,7 @@ public class ShelfController
     GameObject book;
     ShelfView shelf;
     BookView[] books;
-    ColorGenerator colorGenerator;
+    IColoring colorGenerator;
 
     Vector3[] shelfSpace;
     Vector3 bookSize;
@@ -19,7 +19,7 @@ public class ShelfController
 
     BookView[] Books { get => books; set => books = value; }
 
-    public ShelfController(ShelfView shelf, ColorGenerator colorGenerator)
+    public ShelfController(ShelfView shelf, IColoring colorGenerator)
     {
         this.shelf = shelf;
         this.book = Resources.Load("Book") as GameObject;
@@ -55,7 +55,7 @@ public class ShelfController
             newBook.transform.position = shelfSpace[i];
 
             var renderer = newBook.GetComponent<Renderer>();
-            renderer.material.color = colorGenerator.SetColor(shelvesCapacity);
+            renderer.material.color = colorGenerator.Coloring(shelvesCapacity);
             view.Color = renderer.material.color;
         }
     }
